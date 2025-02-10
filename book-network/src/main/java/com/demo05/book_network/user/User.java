@@ -14,6 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.demo05.book_network.book.Book;
+import com.demo05.book_network.history.BookTransactionHistory;
 import com.demo05.book_network.role.Role;
 
 import jakarta.persistence.Column;
@@ -71,6 +73,12 @@ public class User implements UserDetails, Principal {
 
     @OneToMany
     private List<Token> tokens;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> transactionHistories;
 
     @Override
     public String getName() {
