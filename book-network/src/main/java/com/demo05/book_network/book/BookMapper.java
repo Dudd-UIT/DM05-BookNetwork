@@ -1,8 +1,11 @@
 package com.demo05.book_network.book;
 
+import org.springframework.stereotype.Service;
+
 import com.demo05.book_network.file.FileUtils;
 import com.demo05.book_network.history.BookTransactionHistory;
 
+@Service
 public class BookMapper {
     public Book toBook(BookRequest request) {
         return Book.builder()

@@ -10,7 +10,6 @@ import com.demo05.book_network.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -23,7 +22,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
 @SuperBuilder
 @Entity
 public class Book extends BaseEntity {

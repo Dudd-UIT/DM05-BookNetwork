@@ -12,14 +12,14 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
         @Query("""
                         SELECT history
                         FROM BookTransactionHistory history
-                        WHERE histor.user.id = :userId
+                        WHERE history.user.id = :userId
                         """)
         Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable, Integer userId);
 
         @Query("""
                         SELECT history
                         FROM BookTransactionHistory history
-                        WHERE histor.book.owner.id = :userId
+                        WHERE history.book.owner.id = :userId
                         """)
         Page<BookTransactionHistory> findAllReturnedBooks(Pageable pageable, Integer userId);
 
@@ -33,8 +33,8 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
         boolean isAlreadyBorrowedByUser(Integer bookId, Integer id);
 
         @Query("""
-                        SELECT transaction
-                        FROM BookTransactionHistory transaction
+                        SELECT bookTransactionHistory
+                        FROM BookTransactionHistory bookTransactionHistory
                         WHERE bookTransactionHistory.user.id = :userId
                         AND bookTransactionHistory.book.id = :bookId
                         AND bookTransactionHistory.returned = false
@@ -43,8 +43,8 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
         Optional<BookTransactionHistory> findByBookIdAndUserId(Integer bookId, Integer userId);
 
         @Query("""
-                        SELECT transaction
-                        FROM BookTransactionHistory transaction
+                        SELECT bookTransactionHistory
+                        FROM BookTransactionHistory bookTransactionHistory
                         WHERE bookTransactionHistory.book.owner.id = :ownerId
                         AND bookTransactionHistory.book.id = :bookId
                         AND bookTransactionHistory.returned = true
