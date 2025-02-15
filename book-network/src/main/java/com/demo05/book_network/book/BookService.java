@@ -21,7 +21,6 @@ import com.demo05.book_network.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
-
 @Service
 @RequiredArgsConstructor
 public class BookService {
@@ -49,9 +48,13 @@ public class BookService {
                 User user = (User) connectedUser.getPrincipal();
                 Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
                 Page<Book> books = bookRepository.findAllDisplayedBooks(pageable, user.getId());
+                System.out.printf("books", books);
+
                 List<BookResponse> bookResponse = books.stream()
                                 .map(bookMapper::toBookResponse)
                                 .toList();
+
+                System.out.printf("bookResponse", bookResponse);
                 return new PageResponse<>(
                                 bookResponse,
                                 books.getNumber(),
@@ -226,5 +229,4 @@ public class BookService {
                 bookRepository.save(book);
         }
 
-        
 }
