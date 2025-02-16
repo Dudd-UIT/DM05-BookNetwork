@@ -51,7 +51,7 @@ public class FeedbackService {
                 .map(f -> feedbackMapper.toFeedbackResponse(f, user.getId()))
                 .toList();
 
-        return new PageResponse<FeedbackResponse>(
+        return new PageResponse<>(
                 feedbackResponses,
                 feedbacks.getNumber(),
                 feedbacks.getSize(),

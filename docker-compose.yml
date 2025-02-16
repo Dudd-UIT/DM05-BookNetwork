@@ -1,5 +1,5 @@
 services:
-  posgres:
+  postgres:
     container_name: postgres-sql-bsn
     image: postgres
     environment:
@@ -23,6 +23,27 @@ services:
       - 1025:1025
     restart: unless-stopped
 
+  bsn-api:
+    container_name: bsn-api
+    image: bsn/bsn:1.0.0
+    ports:
+      - 8088:8088
+    networks:
+      - spring-demo
+    depends_on: 
+      - postgres
+    restart: unless-stopped
+  
+  bsn-ui:
+    container_name: bsn-ui
+    image: bsn/bsn-ui:1.0.0
+    ports:
+      - 8080:80
+    networks:
+      - spring-demo
+    depends_on:
+      - bsn-api
+    restart: unless-stopped
 
 networks:
   spring-demo:

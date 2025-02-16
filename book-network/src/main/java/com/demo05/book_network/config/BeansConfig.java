@@ -1,8 +1,9 @@
 package com.demo05.book_network.config;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -24,6 +25,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BeansConfig {
     private final UserDetailsService userDetailsService;
+
+    @Value("${application.cors.origins:*}")
+    private List<String> allowedOrigins;
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -54,7 +58,7 @@ public class BeansConfig {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        config.setAllowedOrigins(allowedOrigins);
         config.setAllowedHeaders(Arrays.asList(HttpHeaders.ORIGIN, HttpHeaders.CONTENT_TYPE, HttpHeaders.AUTHORIZATION,
                 HttpHeaders.ACCEPT));
 
