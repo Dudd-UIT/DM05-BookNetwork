@@ -13,7 +13,6 @@ import com.demo05.book_network.book.Book;
 import com.demo05.book_network.book.BookRepository;
 import com.demo05.book_network.common.PageResponse;
 import com.demo05.book_network.exception.OperationNotPermittedException;
-import com.demo05.book_network.user.User;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +32,8 @@ public class FeedbackService {
             throw new OperationNotPermittedException(
                     "You cannot give a feedback for an archived or not shareable book");
         }
-        User user = (User) connectedUser.getPrincipal();
-        if (Objects.equals(book.getOwner().getId(), user.getId())) {
+        // User user = (User) connectedUser.getPrincipal();
+        if (Objects.equals(book.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot give a feedback to your own book");
         }
         Feedback feedback = feedbackMapper.toFeedback(request);
@@ -45,13 +44,13 @@ public class FeedbackService {
     public PageResponse<FeedbackResponse> findAllFeedbackByBook(Integer bookId, int page, int size,
             Authentication connectedUser) {
         Pageable pageable = PageRequest.of(page, size);
-        User user = (User) connectedUser.getPrincipal();
+        // User user = (User) connectedUser.getPrincipal();
         Page<Feedback> feedbacks = feedbackRepository.findAllByBookId(bookId, pageable);
         List<FeedbackResponse> feedbackResponses = feedbacks.stream()
-                .map(f -> feedbackMapper.toFeedbackResponse(f, user.getId()))
+                .map(f -> feedbackMapper.toFeedbackResponse(f, connectedUser.getName()))
                 .toList();
 
-        return new PageResponse<FeedbackResponse>(
+        return new PageResponse<>(
                 feedbackResponses,
                 feedbacks.getNumber(),
                 feedbacks.getSize(),

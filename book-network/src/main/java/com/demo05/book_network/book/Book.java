@@ -5,11 +5,7 @@ import java.util.List;
 import com.demo05.book_network.common.BaseEntity;
 import com.demo05.book_network.feedback.Feedback;
 import com.demo05.book_network.history.BookTransactionHistory;
-import com.demo05.book_network.user.User;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -40,9 +36,9 @@ public class Book extends BaseEntity {
 
     private boolean shareable;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    // @ManyToOne
+    // @JoinColumn(name = "owner_id")
+    // private User owner;
 
     @OneToMany(mappedBy = "book")
     private List<Feedback> feedbacks;

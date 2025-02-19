@@ -1,10 +1,11 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { TokenService } from '../token/token.service';
+import { KeycloakService } from '../keycloak/keycloak.service';
 
 export const httpTokenInterceptor: HttpInterceptorFn = (req, next) => {
-  const tokenService = inject(TokenService); // ✅ Inject TokenService
-  const token = tokenService.token; // 🔥 Lấy token từ TokenService
+  const keycloakService = inject(KeycloakService); // ✅ Inject keycloakService
+  const token = keycloakService.keycloak.token; // 🔥 Lấy token từ keycloakService
   console.log('Interceptor: Sending request with token:', token);
 
   if (token) {

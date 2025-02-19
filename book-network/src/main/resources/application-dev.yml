@@ -13,7 +13,6 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
   mail:
     host: localhost
     port: 1025
@@ -29,15 +28,13 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/book-social-network"
 
 application:
-  security:
-   jwt:
-    secret-key: fee090e7c62e82f7e259f00d072f4d6821bf22aa85f2c04f8fad8e4ddfe17f90f25cb856afe14f030f5564b0e8c6a60222eed0fe896e95d42a83aeec4a7bacf90032556428096abb289e1c5daadbcd37b0b82ac6c7afeacbc9817e172c6c1fa04103656aef56fc3cb7d31104548c698dba21487bb09d68f38d898649428743bb8774c1bcd066e1aeef23b0f302c77cc4abb17e793cd00c1fd7654a253d66734977fbb6f882a4a0bfa3c7dfe947d7a724ec37ddb3ee3fcdfcacc2025f323b2afdd21c5ba2464359a42630f51e936a2790b6cc3fa0f4227313881244245d23eb410a9fb789014c8b0312bf5bddf36b91a5cbf400a33076d55ab549b03d2c08e020
-    jwtExpiration: 8640000
-  mailing:
-   frontend:
-    activation-url: http://localhost:4200/activate-account
   file:
     upload:
       photos-output-path: ./uploads
